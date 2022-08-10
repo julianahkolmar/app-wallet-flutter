@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -7,26 +5,37 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'App Carteira Warren',
       theme: ThemeData(
         primarySwatch: Colors.pink,
       ),
-      home: OcultarValores(),
+      home: TelaInicialWidget(),
     );
   }
 }
 
-class OcultarValores extends StatefulWidget {
-  OcultarValores({Key? key}) : super(key: key);
+class TelaInicialWidget extends StatefulWidget {
+  TelaInicialWidget({Key? key}) : super(key: key);
 
   @override
-  State<OcultarValores> createState() => MyHomePage();
+  State<TelaInicialWidget> createState() => TelaInicialState();
 }
 
-class MyHomePage extends State<OcultarValores> {
+class TelaInicialState extends State<TelaInicialWidget> {
+  String carteira = 'carteira';
+  String valorCarteira = 'R\$ 1.000,00';
+  String rendimento = '+R\$ 100,00';
+  String cdi = '(100% do CDI)';
+  String valEthLtc = 'R\$0,00';
+  String valBtc = 'R\$1.000,00';
+  double variacao1 = 75;
+  double variacao2 = 75;
+  double variacao3 = -0.7;
+  String valorOculto = '         ';
+  bool alterarValorCarteira = true;
+
   Widget listagemCrypto(
       String title, subtitle, trailing, double variacao, icon) {
-    corVariacao() {
+    mudarCorVariacao() {
       if (variacao > 0)
         return true;
       else {
@@ -45,56 +54,43 @@ class MyHomePage extends State<OcultarValores> {
             style: TextStyle(
               fontSize: 10,
               fontWeight: FontWeight.bold,
-              color: corVariacao() ? Colors.green : Colors.red,
+              color: mudarCorVariacao() ? Colors.green : Colors.red,
               backgroundColor:
-                  corVariacao() ? Colors.green[50] : Colors.red[50],
+                  mudarCorVariacao() ? Colors.green[50] : Colors.red[50],
             ),
           ),
         ]));
   }
 
-  String carteiras = 'Carteiras';
-  String valor = 'R\$ 1.000,00';
-  String rendimento = '+R\$ 100,00';
-  String cdi = '(100% do CDI)';
-  String valEth = 'R\$0,00';
-  String valBtc = 'R\$1.000,00';
-  String valLtc = 'R\$0,00';
-  double variacao1 = 75;
-  double variacao2 = 75;
-  double variacao3 = -0.7;
-  String esconderValores = '         ';
-  bool alterarValor = true;
-
-  String funcaoEsconderValor() {
-    if (alterarValor == true) {
-      return valor;
+  String esconderValor() {
+    if (alterarValorCarteira == true) {
+      return valorCarteira;
     } else {
-      return esconderValores;
+      return valorOculto;
     }
   }
 
-  String funcaoEsconderRendimento() {
-    if (alterarValor == true) {
+  String esconderRendimento() {
+    if (alterarValorCarteira == true) {
       return rendimento;
     } else {
-      return esconderValores;
+      return valorOculto;
     }
   }
 
-  String funcaoEsconderCdi() {
-    if (alterarValor == true) {
+  String esconderCDI() {
+    if (alterarValorCarteira == true) {
       return cdi;
     } else {
-      return esconderValores;
+      return valorOculto;
     }
   }
 
-  String funcaoEsconderEthLtc() {
-    if (alterarValor == true) {
-      return valEth;
+  String esconderEthLtc() {
+    if (alterarValorCarteira == true) {
+      return valEthLtc;
     } else {
-      return esconderValores;
+      return valorOculto;
     }
   }
 
@@ -106,7 +102,7 @@ class MyHomePage extends State<OcultarValores> {
           items: [
             BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
             BottomNavigationBarItem(
-                icon: Icon(Icons.wallet_travel), label: "Carteiras"),
+                icon: Icon(Icons.wallet_travel), label: "carteira"),
             BottomNavigationBarItem(
                 icon: Icon(Icons.tune), label: "Movimentações"),
           ],
@@ -120,7 +116,7 @@ class MyHomePage extends State<OcultarValores> {
               child: Padding(
                 padding: EdgeInsets.fromLTRB(50, 0, 140, 1),
                 child: Text(
-                  carteiras,
+                  carteira,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 30,
@@ -130,9 +126,9 @@ class MyHomePage extends State<OcultarValores> {
             ),
             IconButton(
                 onPressed: () {
-                  alterarValor = !alterarValor;
+                  alterarValorCarteira = !alterarValorCarteira;
                   setState(() {
-                    funcaoEsconderValor();
+                    esconderValor();
                   });
                 },
                 icon: const Icon(Icons.remove_red_eye)),
@@ -142,7 +138,7 @@ class MyHomePage extends State<OcultarValores> {
             child: Padding(
               padding: EdgeInsets.fromLTRB(50, 0.5, 0, 2),
               child: Text(
-                funcaoEsconderValor(),
+                esconderValor(),
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 27,
@@ -156,7 +152,7 @@ class MyHomePage extends State<OcultarValores> {
                 width: 50,
               ),
               Text(
-                funcaoEsconderRendimento(),
+                esconderRendimento(),
                 style: TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.bold,
@@ -164,7 +160,7 @@ class MyHomePage extends State<OcultarValores> {
                 ),
               ),
               Text(
-                funcaoEsconderCdi(),
+                esconderCDI(),
                 style: TextStyle(
                   fontSize: 15,
                   color: Colors.grey,
@@ -176,11 +172,11 @@ class MyHomePage extends State<OcultarValores> {
             const SizedBox(
               height: 15,
             ),
-            listagemCrypto('ETH', 'Ethereum', funcaoEsconderEthLtc(), variacao1,
+            listagemCrypto('ETH', 'Ethereum', esconderEthLtc(), variacao1,
                 Icons.attach_money),
-            listagemCrypto('BTC', 'Bitcoin', funcaoEsconderValor(), variacao2,
+            listagemCrypto('BTC', 'Bitcoin', esconderValor(), variacao2,
                 Icons.money),
-            listagemCrypto('LTC', 'Litecoin', funcaoEsconderEthLtc(), variacao3,
+            listagemCrypto('LTC', 'Litecoin', esconderEthLtc(), variacao3,
                 Icons.analytics),
           ])
         ]));
