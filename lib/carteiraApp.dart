@@ -102,7 +102,7 @@ class TelaInicialState extends State<TelaInicialWidget> {
           items: [
             BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
             BottomNavigationBarItem(
-                icon: Icon(Icons.wallet_travel), label: "carteira"),
+                icon: Icon(Icons.wallet_travel), label: "Carteira"),
             BottomNavigationBarItem(
                 icon: Icon(Icons.tune), label: "Movimentações"),
           ],
