@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -21,7 +23,7 @@ class TelaInicialWidget extends StatefulWidget {
 }
 
 class TelaInicialState extends State<TelaInicialWidget> {
-  String carteira = 'Carteira';
+  String carteira = 'carteira';
   String valorCarteira = 'R\$ 1.000,00';
   String rendimento = '+R\$ 100,00';
   String cdi = '(100% do CDI)';
@@ -102,7 +104,7 @@ class TelaInicialState extends State<TelaInicialWidget> {
           items: [
             BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
             BottomNavigationBarItem(
-                icon: Icon(Icons.wallet_travel), label: "Carteira"),
+                icon: Icon(Icons.wallet_travel), label: "carteira"),
             BottomNavigationBarItem(
                 icon: Icon(Icons.tune), label: "Movimentações"),
           ],
