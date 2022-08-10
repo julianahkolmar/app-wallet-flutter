@@ -21,7 +21,7 @@ class TelaInicialWidget extends StatefulWidget {
 }
 
 class TelaInicialState extends State<TelaInicialWidget> {
-  String carteira = 'carteira';
+  String carteira = 'Carteira';
   String valorCarteira = 'R\$ 1.000,00';
   String rendimento = '+R\$ 100,00';
   String cdi = '(100% do CDI)';
